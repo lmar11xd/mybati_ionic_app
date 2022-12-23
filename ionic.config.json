@@ -1,0 +1,7 @@
+{
+  "name": "cordova_mybatis_app",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
