@@ -1,29 +1,32 @@
-<ion-app>
-  <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay">
-      <ion-content>
-        <ion-list id="inbox-list">
-          <ion-list-header>Inbox</ion-list-header>
-          <ion-note>hi@ionicframework.com</ion-note>
+<mat-toolbar color="primary" *ngIf="isAuthenticated">
+  <button mat-icon-button (click)="opened=!opened"><mat-icon>menu</mat-icon></button>
 
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
+  <span>Ionic Cordova App</span>
+  <span class="lmar-mat-spacer"></span>
+  <button mat-icon-button><mat-icon>favorite</mat-icon></button>
+  <button mat-icon-button><mat-icon>share</mat-icon></button>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav #sideNav [(opened)]="opened" mode="over" color="primary">
+    <img class="avatar mat-elevation-z8" src="https://source.unsplash.com/c_GmwfHBDzk/200x200" />
+    <h4 class="name">John Smith</h4>
+    <p class="designation">Software Engineer</p>
 
-        <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
+    <mat-divider></mat-divider>
 
-          <ion-item *ngFor="let label of labels" lines="none">
-            <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-            <ion-label>{{ label }}</ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-content>
-    </ion-menu>
-    <ion-router-outlet id="main-content"></ion-router-outlet>
-  </ion-split-pane>
-</ion-app>
+    <mat-list>
+      <a mat-raised-button *ngFor="let page of pages" routerLink={{page.url}}>
+        <mat-icon>{{page.icon}}</mat-icon>
+        {{page.title}}
+      </a>
+    </mat-list>
+    <button mat-raised-button color="warn" (click)="logout()">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

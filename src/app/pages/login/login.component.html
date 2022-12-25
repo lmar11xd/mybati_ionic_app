@@ -1,0 +1,30 @@
+<div class="lmar-content">
+  <h1 mat-dialog-title>Login</h1>
+  <img mat-card-avatar class="logo-app" src="../../../assets/icon/favicon.png" alt="Logo">
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="formLogin">
+        <mat-grid-list cols="1" rowHeight="90px">
+          <mat-grid-tile>
+            <mat-form-field appearance="outline">
+              <mat-label>Correo</mat-label>
+              <input matInput type="email" placeholder="Ingrese su correo" formControlName="email" autocomplete="off">
+              <mat-icon matSuffix>email</mat-icon>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field appearance="outline">
+              <mat-label>Contraseña</mat-label>
+              <input matInput type="password" placeholder="Ingrese su contraseña" formControlName="password" autocomplete="off">
+              <mat-icon matSuffix>lock</mat-icon>
+            </mat-form-field>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </form>
+      <button mat-raised-button color="primary" (click)="loginUser()" [disabled]="formLogin.invalid">Ingresar</button>
+      <div style="height: 10px;"></div>
+      <a routerLink="/pages/register">¿No tienes una cuenta?</a>
+      <mat-spinner></mat-spinner>
+    </mat-card-content>
+  </mat-card>
+</div>
