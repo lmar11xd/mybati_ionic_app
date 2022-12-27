@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Http, HttpOptions } from '@capacitor-community/http';
+import { from } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../interfaces/user';
 
@@ -13,14 +13,32 @@ export class AuthService {
   private _registerUrl = this.endPoint + "/users";
   private _loginUrl = this.endPoint + "/auth/login";
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
-  registerUser(userEntry: User): Observable<User> {
-    return this.http.post<User>(this._registerUrl, userEntry);
+  registerUser(userEntry: User) {
+    const url = this._registerUrl;
+    const options: HttpOptions = {
+      url,
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "POST",
+      data: JSON.stringify(userEntry)
+    }
+    return from (Http.post(options));
   }
 
-  loginUser(loginEntry: any): Observable<any> {
-    return this.http.post<any>(this._loginUrl, loginEntry);
+  loginUser(userEntry: any) {
+    const url = this._loginUrl;
+    const options: HttpOptions = {
+      url,
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "POST",
+      data: JSON.stringify(userEntry)
+    }
+    return from (Http.post(options));
   }
 
   logout() {

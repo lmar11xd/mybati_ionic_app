@@ -43,17 +43,15 @@ export class LoginComponent implements OnInit {
       password: this.formLogin.value.password
     };
 
-    this._auth.loginUser(loginEntry).subscribe({
-      next: (data) => {
-        if(data.isValid == 1) {
-          this._auth.eventSession.emit(true);
-          this.showSnackBar("Usuario logueado", "OK");
-          this.router.navigate(['/']);
-        } else {
-          this.showSnackBar("Correo y/o contraseña incorrectos", "OK");
-        }
-      },
-      error: (e) => console.log(e)
+    this._auth.loginUser(loginEntry).subscribe((res: any) => {
+      console.log(res);
+      if(res.data.isValid == 1) {
+        this._auth.eventSession.emit(true);
+        this.showSnackBar("Usuario logueado", "OK");
+        this.router.navigate(['/']);
+      } else {
+        this.showSnackBar("Correo y/o contraseña incorrectos", "OK");
+      }
     })
   }
 

@@ -40,8 +40,9 @@ export class RegisterComponent implements OnInit {
     };
 
     this._auth.registerUser(userEntry).subscribe({
-      next: (data) => {
-        if(data) {
+      next: (res) => {
+        console.log(res);
+        if(res.data) {
           this._auth.eventSession.emit(true);
           this.router.navigate(['/']);
           this.showSnackBar("Usuario registrado correctamente.", "OK");
